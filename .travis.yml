@@ -20,21 +20,10 @@ install:
 - npm install
 script: echo "Deploying!"
 before_deploy: npm run build
-script:
-- ls -l
-- ls -lR build
-deploy:
-- provider: pages
-  skip_cleanup: true
-  local_dir: build/
-  github_token: "$GITHUB_TOKEN"
-  on:
-    branch: master
-    tags: true
-- provider: pages
-  repo: "${TRAVIS_REPO_SLUG}-draft"
-  local_dir: build/
-  skip_cleanup: true
-  github_token: "$GITHUB_TOKEN"
-  on:
-    branch: master
+ - provider: firebase
+   skip_cleanup: true
+   on:
+     branch: master      # on which branch trigger build
+   project: cs3-krakow-2018   # Firebase project name
+   token:
+     secure: "WOWlYoP2PZvnXyjuN5cI2mhTOyuVebTNpTv4uxWGq1iMDTJscOU9OJ33aQot1LlSPBj+3R0riruhLjMwOafFi22sLKJjEWP0PJBtBjMy8sD69OBplNBB3sWxA6rfOThggL3rOpHDxZ2lJJL2bif80KNWpkHe/TUHJD15LAQtqKfraqfTj9YFQzUi3FfeAca/bVNOtmKtyR/Ai3ViUjtcrCGAWwTTVCLFurbBMFdYnResZkBWiBEm70vZCYvULDqLAP8go39XcPxPvvRQ5+F5dmkrfWhu+j09F1RqEcPxrV7V0TNt2XSavHN+K+uw002eJUFGPanwSKoDkAm50r60rFxbC57r5c0KhWeaLc52apgFosX2zsGs2Ezl+TOvtTkgdUK0pwdVkPn7Z2E4t8Rvu6ebQmzbk+fOcRSfrqbK4sZNtRDkLq/g5G1kAeYPX6+ObR3h8mAtJaka9FrZ70/qmYvBaukNvpdFFkTZhJBzXiiwrko1zCNalOQCY+jkyY2LYxTFO9shAZ2xYwag+XFLiC9sbDOPT0spCiUcgywdqcfFfr7T5m7ZqqGliDXU1aYx2uGUMGRe6eQt3jj0pEM3bYqHzV6lN5n9QaQlYz7aVODCc7uaC7w7eMyQsKiAhGTtR3CJvubbSGZ0Ame6VZGVKDp/wJHIiwBFx/n1I5H+uOY="
