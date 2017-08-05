@@ -8,8 +8,6 @@ cache:
 env:
   matrix:
   - CXX=g++-4.8
-  global:
-    secure: Eda6Myle5reef+akN6H/2h0FUgKPIc2CYmT7uGayBKBg0ie0jpXr53bep8tOSZGsXQWo3I44gFK5A+j71gWhlp1g8cQ7Z4cP17uUM2hmvLEVZDJ+iITlEpCAqeE5oWiVFiFUu41w817spflhKrdTESVF2MKLi3q4iR07HwSLu2l8wqVXL0lSBX6VoR9v94yHwrBQ4cDgs/YPkOC7o5lWgx5NSpDTogV/7Z0D+8LW9p+SmVN7R3C9R8RoW8zK0x0zCo/YCXgTtZlXDaAGBNYFupXItYVhdUwCVU/OcFO62kvRaOsxr2PNXsZjYQCglyfcTF/aqaiZwA2EqOusIUY3h3Qug83Eh9WqXrxlMAhx3tvT4/8otwRJ277bjeBZTk+1zPY86Pg2FSXGG8vIbeC5AaXwySiRPPPxUN27CuUeKrBq52hkdgm6zRLx3J4/9QZ+ad75lnGPkiQRZVjb18nsZvsAw+XkCzh131J/yJO7fdbwMkYquHdu2hN9fM+LlrZqn3NdmWjLImFJa4fSlDi7UjjKLvutVBJsAVEZ5ruw6HN9d+Impd6DzMgkYy2TJecCwwUp+JkyliuRVFmKL1MXqBlBMkgjq2QtDvxtsIQ0m9UM1/ClrD1HIqVTXIbaQ/2kgdZljiNfsm1MWpNL+AYWco9E2Zzmj/N+tqCiy/2054o=
 addons:
   apt:
     sources:
@@ -20,6 +18,7 @@ install:
 - npm install
 script: echo "Deploying!"
 before_deploy: npm run build
+deploy:
  - provider: firebase
    skip_cleanup: true
    on:
