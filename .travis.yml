@@ -6,7 +6,10 @@ cache:
   - bower_components
   - "${NVM_PATH}_modules"
 env:
-- CXX=g++-4.8
+  matrix:
+  - CXX=g++-4.8
+  global:
+    secure: Eda6Myle5reef+akN6H/2h0FUgKPIc2CYmT7uGayBKBg0ie0jpXr53bep8tOSZGsXQWo3I44gFK5A+j71gWhlp1g8cQ7Z4cP17uUM2hmvLEVZDJ+iITlEpCAqeE5oWiVFiFUu41w817spflhKrdTESVF2MKLi3q4iR07HwSLu2l8wqVXL0lSBX6VoR9v94yHwrBQ4cDgs/YPkOC7o5lWgx5NSpDTogV/7Z0D+8LW9p+SmVN7R3C9R8RoW8zK0x0zCo/YCXgTtZlXDaAGBNYFupXItYVhdUwCVU/OcFO62kvRaOsxr2PNXsZjYQCglyfcTF/aqaiZwA2EqOusIUY3h3Qug83Eh9WqXrxlMAhx3tvT4/8otwRJ277bjeBZTk+1zPY86Pg2FSXGG8vIbeC5AaXwySiRPPPxUN27CuUeKrBq52hkdgm6zRLx3J4/9QZ+ad75lnGPkiQRZVjb18nsZvsAw+XkCzh131J/yJO7fdbwMkYquHdu2hN9fM+LlrZqn3NdmWjLImFJa4fSlDi7UjjKLvutVBJsAVEZ5ruw6HN9d+Impd6DzMgkYy2TJecCwwUp+JkyliuRVFmKL1MXqBlBMkgjq2QtDvxtsIQ0m9UM1/ClrD1HIqVTXIbaQ/2kgdZljiNfsm1MWpNL+AYWco9E2Zzmj/N+tqCiy/2054o=
 addons:
   apt:
     sources:
@@ -18,18 +21,17 @@ install:
 script: echo "Deploying!"
 before_deploy: npm run build
 deploy:
-- provider: firebase
+- provider: pages
   skip_cleanup: true
+  #local_dir: dist/zeppelin-grunt
+  github_token: "$GITHUB_TOKEN"
   on:
     branch: master
-  project: hoverboard-master
-  token:
-    secure: fQOOIF4mkqH438Dawy2v27Qw7UsVizfJ1ZIeTno2sGfq9an8mZk13YWBuYJcOc1hSnEEp3G7/pkBcwykCj1CYpoOS+wMxpVbOQw6ogMGFD8rv+208Ddt1VJw/uUuFdf4k07+eRGokykCsCmcv2J+5wnLw34CKzXYTxLpL6JrxGzkuAcKIRNNda13yxJfYXz7HtQiNo3aMYnv2MCffNnSaR+OJ9Cl0JGYDCg3zuJIqrq7CFJqnUXE5TsO0VGCLY46rLvICY6inNlgZvA4RWi6Yf4rs2swzgC7HKbcIipjptlCRpPdRigLKoxhv6HZUIpkVgDu10Jq6OWU5gj4VpNYYd+c+E4F23nvm+3BEToUuEGURZ9Ins1SSHr3d+WxneQ+jreHCGrEBhKkLknbPQuOQF3khtk9CHu+07fBafBCLt4dGC6oQu+QwTdn+JQ/rYxWAUq8yJjrTsKevgXAVyMqDTU1Fy7FH5QP7HRyI71C6Q7Ij3cVwrFrVXNGzg2h2q8qTX2Yn6Ph9NJUpS+QmVsymblh38zwlyThZ1T4XudYM5iZTzNKKVqCmR9upl8nSLMEez1ukhBETJCslb2nFXJI3k7dsFA5cGO51sbYB44bxIXJwZkQ0s9p8XBNsU9gI2hX6UvE5+tephbohd6YGHmfc+qaJkLpcYKjRbhFsysf60k=
-- provider: firebase
+    tags: true
+- provider: pages
+  repo: "${TRAVIS_REPO_SLUG}-draft"
+  #local_dir: dist/zeppelin-grunt
   skip_cleanup: true
+  github_token: "$GITHUB_TOKEN"
   on:
-    branch: develop
-  project: hoverboard-dev
-  token:
-    secure: Quq/Ys1GKDYFjqMCD107saKj005L0RaM7Ian9yLIW/er4KdMzwjYw7TVXmtMeJPIfEy/e2/4WJ63K1SaXieBoFndoUcpGWqPOoTrnkkj5K7tzeZKM32XqIarF+BNmOoqW5M7+kuN8L7N3RLp00ywFDOgKgiZJeoaDV6sIRRAIFVh+xHWabVWpFCwCUSeBZpufOsZhMXkicyRe0XhMmkUvS1P5CI3AyZZdIfWG+sguFsPOWRjMFKWrbnsilDFDjf7N0Wd8Z1H2Z0LBn/V00bNb95MSIuOhkdk3a1wP0P5Eollet+Y8g+NpdWyFq0/C+6+ECvFLBjtvbtMY1BVfdxkCo5XlogZx31OmkMWVX6PXOD5Va8aFoJnwvjovUT8oZbSCWEuyMxI91jDsLxXZt542MNfUfQ1Q2+SpUShdcRlwoV2c/XOYvme95HnI1LSqzLubooKWxz8wpa/aovkdZbum54t/z5nA54AXN1lYKsi+hcAFHOeucqd/kHOLG0bx05Ev86wcvNH8qGx+v7S644YH37No7PGnKU3g3Jq/m6quo1B/bMEIaatVnR40D301wAi8tsNWnqEdWFKnAlGrTIDd1qek9OHnApmgBQI8o0FOy6WbzLMwl9PnMl+t+wew/ggSY0IdWhjFWR/S1d6xML8cYHXHVpE0wxkat5ETbIYXlg=
-
+    branch: master
